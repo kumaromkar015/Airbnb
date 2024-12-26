@@ -1,5 +1,5 @@
 const express = require("express");
-const router = express();
+const router = express.Router();
 const Listing = require("../models/listing.js");
 
 const wrapAsync = require("../utils/wrapAsync.js");
@@ -83,11 +83,11 @@ router.delete(
 	"/:id",
 	wrapAsync(async (req, res) => {
 		let { id } = req.params;
-		console.log(req.params);
+		console.log(`request for param ${req.params}`);
 		let deletedListing = await Listing.findByIdAndDelete(id);
-		console.log(deletedListing);
+		console.log(`deleted listing ${deletedListing}`);
 		res.redirect(`/listings`);
 	})
 );
 
-    module.exports = router;
+module.exports = router;
