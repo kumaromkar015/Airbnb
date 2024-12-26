@@ -1,0 +1,68 @@
+.navbar {
+	height: 5rem;
+	background-color: white;
+}
+
+.fa-compass {
+	color: #ff385c;
+	font-size: 2rem;
+}
+
+.listing-card {
+	border: none !important;
+	margin-bottom: 1rem !important;
+}
+
+.card-img-top {
+	border-radius: 1rem !important;
+	width: 100% !important;
+	object-fit: cover !important;
+}
+.card-body {
+	padding: 0 !important ;
+}
+.listing_link {
+	text-decoration: none;
+}
+
+/* new.ejs  */
+.add_new_listing {
+	width: 62% !important;
+}
+
+.new_form {
+	justify-content: center;
+	background-color: #ecd444;
+	border-radius: 2rem !important;
+	margin-top: 2rem !important;
+	padding: 2rem !important;
+	line-height: 2rem !important;
+	margin-bottom: 2rem !important;
+	width: 100%;
+}
+
+/* edit.ejs  */
+.edit_form {
+	width: 62% !important;
+}
+
+.edit_main {
+	justify-content: center;
+	background-color: #ecd444;
+	border-radius: 2rem !important;
+	margin-top: 2rem !important;
+	padding: 2rem !important;
+	line-height: 2rem !important;
+	margin-bottom: 2rem !important;
+	width: 100%;
+}
+
+/* show file  */
+.show_image {
+	height: 30vh;
+}
+
+.show_card {
+	padding-left: 0;
+	padding-right: 0;
+}
