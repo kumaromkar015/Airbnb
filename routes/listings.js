@@ -17,8 +17,6 @@ const validateListing = (req, res, next) => {
 	}
 };
 
-// pratice
-
 // index route
 router.get(
 	"/",
@@ -83,9 +81,9 @@ router.delete(
 	"/:id",
 	wrapAsync(async (req, res) => {
 		let { id } = req.params;
-		console.log(`request for param ${req.params}`);
+		console.log(req.params);
 		let deletedListing = await Listing.findByIdAndDelete(id);
-		console.log(`deleted listing ${deletedListing}`);
+		console.log(deletedListing);
 		res.redirect(`/listings`);
 	})
 );
