@@ -12,8 +12,9 @@
 				alt="Show Image"
 			/>
 			<div class="card-body">
+				<p><b> Owned By : </b><i><%=listing.owner.username %></i></p>
 				<%=listing.description %> <br />
-				<b>Price : </b> <%=listing.price.toLocaleString("en-IN") %> / night
+				<b>Price : </b><%=listing.price.toLocaleString("en-IN") %> / night
 				<br />
 				<b>Location : </b><%=listing.location %> <br />
 				<b>Country : </b><%=listing.country %>
