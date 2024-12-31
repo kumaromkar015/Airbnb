@@ -5,13 +5,17 @@ const path = require("path");
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
 const ExpressError = require("./utils/ExpressError.js");
-const reviews = require("./routes/reviews.js");
-const listings = require("./routes/listings.js");
+
 const session = require("express-session");
 const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const user = require("./models/user.js");
+
+//Routes
+const reviewRoutes = require("./routes/reviews.js");
+const listingRoutes = require("./routes/listings.js");
+const userRoutes = require("./routes/user.js");
 
 //session varibles
 const sessionOptions = {
@@ -67,8 +71,9 @@ app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
 // Routes
-app.use("/listings", listings);
-app.use("/listings/:id/review", reviews);
+app.use("/listings", listingRoutes);
+app.use("/listings/:id/review", reviewRoutes);
+app.use("/", userRoutes);
 
 // Home Route
 app.get("/", (req, res) => {
