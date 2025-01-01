@@ -20,7 +20,7 @@
 				<b>Country : </b><%=listing.country %>
 			</div>
 		</div>
-
+		<% if(currUser && listing.owner._id.equals(currUser._id)){%>
 		<div class="btns" style="display: flex">
 			<a
 				href="/listings/<%=listing.id%>/edit"
@@ -31,12 +31,13 @@
 				<button class="btn btn-dark offset-5">Delete</button>
 			</form>
 		</div>
+		<%}%>
 	</div>
-
 	<!-- review section  -->
-
+	<% if(currUser) {%>
 	<div class="review col-8 offset-3 mt-5 mb-5">
 		<hr />
+
 		<h4>Leave a review</h4>
 		<form
 			action="/listings/<%=listing.id %>/review"
@@ -73,7 +74,7 @@
 				Submit
 			</button>
 		</form>
-
+		<%}%>
 		<hr />
 
 		<h2>All Reviews</h2>
@@ -83,7 +84,7 @@
 
 			<div class="card col-5 ms-3 mb-3">
 				<div class="card-body">
-					<h5 class="card-title">Omkar kumar</h5>
+					<h5 class="card-title">@<%=review.author.username %></h5>
 
 					<p class="card-text"><%=review.comment %></p>
 					<p class="card-text"><%=review.rating %> Start</p>
