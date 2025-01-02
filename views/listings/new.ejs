@@ -1,6 +1,12 @@
 <% layout("/layouts/boilerplate") %>
 <div class="row new_form">
-	<form action="/listings" method="post" novalidate class="add_new_listing needs-validation">
+	<form
+		action="/listings"
+		method="post"
+		novalidate
+		class="add_new_listing needs-validation"
+		enctype="multipart/form-data"
+	>
 		<div>
 			<label for="title">Title</label>
 			<input
@@ -22,15 +28,10 @@
 				required
 			></textarea>
 		</div>
-		<div>
-			<label for="image">Image</label>
-			<input
-				type="text"
-				name="listing[image]"
-				placeholder="Enter image"
-				class="form-control"
 
-			/>
+		<div>
+			<label for="image">Upload Image</label>
+			<input type="file" name="listing[image]" class="form-control" required />
 		</div>
 
 		<div>
@@ -42,7 +43,7 @@
 				class="form-control"
 				required
 			/>
-			<div class="invalid-feedback">Enter valid price </div>
+			<div class="invalid-feedback">Enter valid price</div>
 		</div>
 		<div>
 			<label for="location">Location</label>

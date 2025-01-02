@@ -1,103 +1,125 @@
 <% layout("/layouts/boilerplate") %>
-<body>
-	<div class="row">
-		<div class="col-8 offset-3">
-			<h3><%=listing.title %></h3>
-		</div>
-
-		<div class="card col-6 offset-3 show_card listing-card">
-			<img
-				src="<%=listing.image %>"
-				class="card-img-top show_image"
-				alt="Show Image"
-			/>
-			<div class="card-body">
-				<p><b> Owned By : </b><i><%=listing.owner.username %></i></p>
-				<%=listing.description %> <br />
-				<b>Price : </b><%=listing.price.toLocaleString("en-IN") %> / night
-				<br />
-				<b>Location : </b><%=listing.location %> <br />
-				<b>Country : </b><%=listing.country %>
-			</div>
-		</div>
-		<% if(currUser && listing.owner._id.equals(currUser._id)){%>
-		<div class="btns" style="display: flex">
-			<a
-				href="/listings/<%=listing.id%>/edit"
-				class="btn btn-danger col-1 offset-3"
-				>Edit</a
-			>
-			<form action="/listings/<%=listing.id%>?_method=DELETE" method="post">
-				<button class="btn btn-dark offset-5">Delete</button>
-			</form>
-		</div>
-		<%}%>
+<script>
+	const mapTocken = "<%=process.env.MAP_TOCKEN %>";
+</script>
+<div class="row">
+	<div class="col-8 offset-3">
+		<h3><%=listing.title %></h3>
 	</div>
-	<!-- review section  -->
-	<% if(currUser) {%>
-	<div class="review col-8 offset-3 mt-5 mb-5">
-		<hr />
 
-		<h4>Leave a review</h4>
-		<form
-			action="/listings/<%=listing.id %>/review"
-			method="post"
-			novalidate
-			class="needs-validation"
+	<div class="card col-6 offset-3 show_card listing-card">
+		<img
+			src="<%=listing.image.url %>"
+			class="card-img-top show_image"
+			alt="Show Image"
+		/>
+		<div class="card-body">
+			<p><b> Owned By : </b><i><%=listing.owner.username %></i></p>
+			<%=listing.description %> <br />
+			<b>Price : </b><%=listing.price.toLocaleString("en-IN") %> / night
+			<br />
+			<b>Location : </b><%=listing.location %> <br />
+			<b>Country : </b><%=listing.country %>
+		</div>
+	</div>
+	<% if(currUser && listing.owner._id.equals(currUser._id)){%>
+	<div class="btns" style="display: flex">
+		<a
+			href="/listings/<%=listing.id%>/edit"
+			class="btn btn-danger col-1 offset-3"
+			>Edit</a
 		>
-			<div class="rating">
-				<label for="rating" class="form-label">Rating</label>
-				<input
-					type="range"
-					class="form-range"
-					min="1"
-					max="5"
-					id="rating"
-					name="reviews[rating]"
-				/>
-			</div>
-			<div class="comment">
-				<label for="comment">Comment</label>
-				<textarea
-					name="reviews[comment]"
-					id="comment"
-					cols="30"
-					rows="5"
-					class="form-control"
-					required
-				></textarea>
-				<div class="invalid-feedback">
-					please submit some comments for review
-				</div>
-			</div>
-			<button class="btn btn-outline-dark" style="margin-top: 10px">
-				Submit
-			</button>
+		<form action="/listings/<%=listing.id%>?_method=DELETE" method="post">
+			<button class="btn btn-dark offset-5">Delete</button>
 		</form>
-		<%}%>
-		<hr />
-
-		<h2>All Reviews</h2>
-
-		<div class="row">
-			<% for(let review of listing.reviews){ %>
-
-			<div class="card col-5 ms-3 mb-3">
-				<div class="card-body">
-					<h5 class="card-title">@<%=review.author.username %></h5>
-
-					<p class="card-text"><%=review.comment %></p>
-					<p class="card-text"><%=review.rating %> Start</p>
-					<form
-						action="/listings/<%=listing.id %>/review/<%=review.id %>?_method=DELETE"
-						method="post"
-						class="mb-3"
-					>
-						<button class="btn btn-sm btn-dark">Delete</button>
-					</form>
-				</div>
-			</div>
-			<%} %>
-		</div>
 	</div>
-</body>
+	<%}%>
+</div>
+<!-- review section  -->
+<% if(currUser) {%>
+<div class="review col-8 offset-3 mt-5 mb-5">
+	<hr />
+
+	<h4>Leave a review</h4>
+	<form
+		action="/listings/<%=listing.id %>/review"
+		method="post"
+		novalidate
+		class="needs-validation"
+	>
+		<div class="rating mb-3 mt-3">
+			<label for="rating" class="form-label">Rating</label>
+			<fieldset class="starability-slot">
+				<input
+					type="radio"
+					id="no-rate"
+					class="input-no-rate"
+					name="reviews[rating]"
+					value="1"
+					checked
+					aria-label="No rating."
+				/>
+				<input type="radio" id="first-rate1" name="reviews[rating]" value="1" />
+				<label for="first-rate1" title="Terrible">1 star</label>
+				<input type="radio" id="first-rate2" name="reviews[rating]" value="2" />
+				<label for="first-rate2" title="Not good">2 stars</label>
+				<input type="radio" id="first-rate3" name="reviews[rating]" value="3" />
+				<label for="first-rate3" title="Average">3 stars</label>
+				<input type="radio" id="first-rate4" name="reviews[rating]" value="4" />
+				<label for="first-rate4" title="Very good">4 stars</label>
+				<input type="radio" id="first-rate5" name="reviews[rating]" value="5" />
+				<label for="first-rate5" title="Amazing">5 stars</label>
+			</fieldset>
+		</div>
+		<div class="comment">
+			<label for="comment">Comment</label>
+			<textarea
+				name="reviews[comment]"
+				id="comment"
+				cols="30"
+				rows="5"
+				class="form-control"
+				required
+			></textarea>
+			<div class="invalid-feedback">please submit some comments for review</div>
+		</div>
+		<button class="btn btn-outline-dark" style="margin-top: 10px">
+			Submit
+		</button>
+	</form>
+	<%}%>
+	<hr />
+	<% if(listing.reviews.length > 0 ) { %>
+
+	<div class="row">
+		<h2>All Reviews</h2>
+		<% for(let review of listing.reviews){ %>
+
+		<div class="card col-5 ms-3 mb-3">
+			<div class="card-body">
+				<h5 class="card-title">@<%=review.author.username %></h5>
+
+				<p class="starability-result" data-rating="<%=review.rating%>">
+					Rated: 3 stars
+				</p>
+				<p class="card-text"><%=review.comment %></p>
+
+				<form
+					action="/listings/<%=listing.id %>/review/<%=review.id %>?_method=DELETE"
+					method="post"
+					class="mb-3"
+				>
+					<button class="btn btn-sm btn-dark">Delete</button>
+				</form>
+			</div>
+		</div>
+		<%} %>
+	</div>
+	<% } %>
+</div>
+<div class="col-8 offset-3 mt-5 mb-5">
+	<h3>Where you'll be</h3>
+	<div id="map"></div>
+</div>
+
+<script src="/js/map.js"></script>

@@ -18,14 +18,18 @@
 			crossorigin="anonymous"
 			referrerpolicy="no-referrer"
 		/>
+		<link rel="stylesheet" href="/css/rating.css" />
+		<link
+			href="https://api.mapbox.com/mapbox-gl-js/v3.9.1/mapbox-gl.css"
+			rel="stylesheet"
+		/>
+		<script src="https://api.mapbox.com/mapbox-gl-js/v3.9.1/mapbox-gl.js"></script>
 	</head>
 	<body>
 		<%- include("../includes/navbar.ejs") %>
 		<div class="container">
-			<%-include("../includes/flash.ejs") %>
-			<%-body %>
+			<%-include("../includes/flash.ejs") %> <%-body %>
 		</div>
-
 
 		<script
 			src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
