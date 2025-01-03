@@ -11,6 +11,7 @@ const ejsMate = require("ejs-mate");
 const ExpressError = require("./utils/ExpressError.js");
 
 const session = require("express-session");
+const MongoStore = require("connect-mongo");
 const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
@@ -21,9 +22,24 @@ const reviewRoutes = require("./routes/reviews.js");
 const listingRoutes = require("./routes/listings.js");
 const userRoutes = require("./routes/user.js");
 
+const dbUrl = process.env.ATLASDB_URL;
+
+const store = MongoStore.create({
+	mongoUrl: dbUrl,
+	crypto: {
+		secret: process.env.SECRET,
+	},
+	touchAfter: 24 * 3600,
+});
+
+store.on("error", () => {
+	console.log("ERROR in MONGO SESSION STORE ", err);
+});
+
 //session varibles
 const sessionOptions = {
-	secret: "mysupersecretstring",
+	store,
+	secret: process.env.SECRET,
 	resave: false,
 	saveUninitialized: true,
 	cookie: {
@@ -32,11 +48,10 @@ const sessionOptions = {
 		httpOnly: true,
 	},
 };
-const MONG_URL = "mongodb://127.0.0.1:27017/wanderlust";
 
 // Connect to MongoDB
 async function main() {
-	await mongoose.connect(MONG_URL);
+	await mongoose.connect(dbUrl);
 }
 main()
 	.then(() => {
@@ -50,6 +65,7 @@ main()
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
+
 app.use(session(sessionOptions));
 app.use(flash());
 
@@ -80,11 +96,6 @@ app.set("views", path.join(__dirname, "views"));
 app.use("/listings", listingRoutes);
 app.use("/listings/:id/review", reviewRoutes);
 app.use("/", userRoutes);
-
-// Home Route
-app.get("/", (req, res) => {
-	res.send(`Hi , Its AirNb`);
-});
 
 // Error handling for 404
 app.all("*", (req, res, next) => {
