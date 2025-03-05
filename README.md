@@ -77,9 +77,6 @@ Ensure you have the following installed:
     ![image](https://github.com/user-attachments/assets/2c039cd3-94a9-4a3e-b6ea-58ea2335b7fd)
 
 
-## 📄 API Documentation
-(If applicable, list REST API endpoints and usage instructions.)
-
 ## 🏗️ Future Enhancements
 - Online Payment Integration (PayPal, Stripe, Razorpay)
 - AI-based Booking Recommendations
