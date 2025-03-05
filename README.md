@@ -96,7 +96,7 @@ Contributions are welcome! To contribute:
 ## 📬 Contact
 - **Developer:** Omkar kumar sandilay
 - **Email:** kumaromkar015@gmail.com  
-- **GitHub:** [Your GitHub Profile](https://github.com/kumaromkar015)
-- **LinkedIn:** [Your LinkedIn](www.linkedin.com/in/omkarshandilya42)
+- **GitHub:** [GitHub Profile](https://github.com/kumaromkar015)
+- **LinkedIn:** [LinkedIn](www.linkedin.com/in/omkarshandilya42)
 
 
