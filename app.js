@@ -46,6 +46,8 @@ const sessionOptions = {
 		expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
 		maxAge: 7 * 24 * 60 * 60 * 1000,
 		httpOnly: true,
+		secure: process.env.NODE_ENV === "production",
+		sameSite: "lax",
 	},
 };
 
@@ -62,6 +64,7 @@ main()
 	});
 
 // Middleware
+app.set("trust proxy", 1);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
@@ -96,6 +99,10 @@ app.set("views", path.join(__dirname, "views"));
 app.use("/listings", listingRoutes);
 app.use("/listings/:id/review", reviewRoutes);
 app.use("/", userRoutes);
+
+app.get("/", (req, res) => {
+	res.redirect("/listings");
+});
 
 // Error handling for 404
 app.all("*", (req, res, next) => {

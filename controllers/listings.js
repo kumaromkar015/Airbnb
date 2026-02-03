@@ -25,9 +25,10 @@ module.exports.showListing = async (req, res) => {
 		.populate("owner");
 
 	if (!listing) {
-		req.flash("error", "Listing you requested for does not exits!");
-		res.redirect("/listings");
+		req.flash("error", "Listing you requested for does not exist!");
+		return res.redirect("/listings");
 	}
+
 	console.log(listing);
 	res.render("listings/show.ejs", { listing });
 };
@@ -63,7 +64,7 @@ module.exports.renderEditForm = async (req, res) => {
 	let originalImageUrl = listing.image.url;
 	originalImageUrl = originalImageUrl.replace(
 		"/upload",
-		"/upload/h_200,w_200,"
+		"/upload/h_200,w_200,",
 	);
 	res.render("listings/edit.ejs", { listing, originalImageUrl });
 };
